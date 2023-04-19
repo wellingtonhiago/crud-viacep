@@ -2,87 +2,37 @@ package com.bitway.crudviacep.model;
 
 import com.github.gilbertotorrezan.viacep.se.ViaCEPClient;
 import com.github.gilbertotorrezan.viacep.shared.ViaCEPEndereco;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 
 import java.io.IOException;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Address {
 
-    private final String cep;
-    private final ViaCEPClient viaCEPClient;
+    private String cep;
+    private String logradouro;
+    private String complemento;
+    private String bairro;
+    private String localidade;
+    private String uf;
+    private String ibge;
 
-    public Address(String cep) {
+    public Address(String cep) throws IOException {
         this.cep = cep;
-        this.viaCEPClient = new ViaCEPClient();
-    }
 
-    public String getRua() {
-        try {
-            ViaCEPEndereco address = viaCEPClient.getEndereco(cep);
-            return address.getLogradouro();
-        } catch (IOException e) {
-            System.err.println("Erro ao obter a rua do endereço: " + e.getMessage());
-            return "";
-        }
-    }
+        ViaCEPClient client = new ViaCEPClient();
+        ViaCEPEndereco endereco = client.getEndereco(cep);
 
-    public String getBairro() {
-        try {
-            ViaCEPEndereco address = viaCEPClient.getEndereco(cep);
-            return address.getBairro();
-        } catch (IOException e) {
-            System.err.println("Erro ao obter o bairro do endereço: " + e.getMessage());
-            return "";
-        }
-    }
-
-    public String getCidade() {
-        try {
-            ViaCEPEndereco address = viaCEPClient.getEndereco(cep);
-            return address.getLocalidade();
-        } catch (IOException e) {
-            System.err.println("Erro ao obter a cidade do endereço: " + e.getMessage());
-            return "";
-        }
-    }
-
-    public String getEstado() {
-        try {
-            ViaCEPEndereco address = viaCEPClient.getEndereco(cep);
-            return address.getUf();
-        } catch (IOException e) {
-            System.err.println("Erro ao obter o estado do endereço: " + e.getMessage());
-            return "";
-        }
-    }
-
-    public String getComplemento() {
-        try {
-            ViaCEPEndereco address = viaCEPClient.getEndereco(cep);
-            return address.getComplemento();
-        } catch (IOException e) {
-            System.err.println("Erro ao obter o complemento do endereço: " + e.getMessage());
-            return "";
-        }
-    }
-
-    public String getCEP() {
-        try {
-            ViaCEPEndereco address = viaCEPClient.getEndereco(cep);
-            return address.getCep();
-        } catch (IOException e) {
-            System.err.println("Erro ao obter o CEP do endereço: " + e.getMessage());
-            return "";
-        }
-    }
-
-    public String getIBGE() {
-        try {
-            ViaCEPEndereco address = viaCEPClient.getEndereco(cep);
-            return address.getIbge();
-        } catch (IOException e) {
-            System.err.println("Erro ao obter o IBGE do endereço: " + e.getMessage());
-            return "";
-        }
+        this.logradouro = endereco.getLogradouro();
+        this.complemento = endereco.getComplemento();
+        this.bairro = endereco.getBairro();
+        this.localidade = endereco.getLocalidade();
+        this.uf = endereco.getUf();
+        this.ibge = endereco.getIbge();
     }
 }
