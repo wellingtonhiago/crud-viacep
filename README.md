@@ -74,7 +74,7 @@ public class ClientController {
     @Autowired
     private ClientRepository clients;
 
-    @PostMapping("/register")
+    @PostMapping
     public ResponseEntity<Client> register(@RequestBody Client client) {
         return ResponseEntity.ok(clients.save(client));
     }
@@ -84,7 +84,7 @@ public class ClientController {
         return ResponseEntity.ok(clients.findByCPF(cpf));
     }
 
-    @PatchMapping("/update/{cpf}")
+    @PatchMapping("/{cpf}")
     public ResponseEntity<Client> updateClient(@PathVariable String cpf, @RequestBody Map<String, Object> updates) {
         Client client = clients.findByCPF(cpf);
         if (client == null) {
@@ -111,7 +111,7 @@ public class EmployeeController {
     @Autowired
     private EmployeeRepository employees;
 
-    @PostMapping("/register")
+    @PostMapping
     public ResponseEntity<Employee> register(@RequestBody Employee employee) {
         return ResponseEntity.ok(employees.save(employee));
     }
@@ -121,7 +121,7 @@ public class EmployeeController {
         return ResponseEntity.ok(employees.findByCPF(cpf));
     }
 
-    @PatchMapping("/update/{cpf}")
+    @PatchMapping("/{cpf}")
     public ResponseEntity<Employee> updateEmployee(@PathVariable String cpf, @RequestBody Map<String, Object> updates) {
         Employee employee = employees.findByCPF(cpf);
         if (employee == null) {
@@ -131,14 +131,14 @@ public class EmployeeController {
         return ResponseEntity.ok(employees.save(EmployeeService.update(employee, updates)));
     }
 
-    @DeleteMapping("/delete/{cpf}")
+    @DeleteMapping("/{cpf}")
     public void deleteEmployee(@PathVariable String cpf){
         employees.delete(employees.findByCPF(cpf));
     }
 
-    @GetMapping("/count/{valor}")
-    public int count(@PathVariable String valor){
-        return employees.findAllByCEP(Collections.singleton(valor)).size();
+    @GetMapping("/count/{cep}")
+    public int count(@PathVariable String cep){
+        return employees.findAllByCEP(Collections.singleton(cep)).size();
     }
 
 }
