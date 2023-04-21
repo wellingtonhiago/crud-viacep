@@ -17,6 +17,4 @@ public class Client {
     String email;
     Address cep;
 
-
-
 }

@@ -16,7 +16,7 @@ public class ClientController {
     @Autowired
     private ClientRepository clients;
 
-    @PostMapping("/register")
+    @PostMapping
     public ResponseEntity<Client> register(@RequestBody Client client) {
         return ResponseEntity.ok(clients.save(client));
     }
@@ -26,7 +26,7 @@ public class ClientController {
         return ResponseEntity.ok(clients.findByCPF(cpf));
     }
 
-    @PatchMapping("/update/{cpf}")
+    @PatchMapping("/{cpf}")
     public ResponseEntity<Client> updateClient(@PathVariable String cpf, @RequestBody Map<String, Object> updates) {
         Client client = clients.findByCPF(cpf);
         if (client == null) {
