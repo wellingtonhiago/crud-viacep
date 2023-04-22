@@ -26,7 +26,7 @@ public class ClientController {
         return ResponseEntity.ok(clients.findByCPF(cpf));
     }
 
-    @PatchMapping("/{cpf}")
+    @PutMapping("/{cpf}")
     public ResponseEntity<Client> updateClient(@PathVariable String cpf, @RequestBody Map<String, Object> updates) {
         Client client = clients.findByCPF(cpf);
         if (client == null) {

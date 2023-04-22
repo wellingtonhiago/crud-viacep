@@ -27,7 +27,7 @@ public class EmployeeController {
         return ResponseEntity.ok(employees.findByCPF(cpf));
     }
 
-    @PatchMapping("/{cpf}")
+    @PutMapping("/{cpf}")
     public ResponseEntity<Employee> updateEmployee(@PathVariable String cpf, @RequestBody Map<String, Object> updates) {
         Employee employee = employees.findByCPF(cpf);
         if (employee == null) {
